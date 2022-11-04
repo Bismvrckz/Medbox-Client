@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Button,
   Flex,
@@ -10,17 +10,15 @@ import {
   InputRightElement,
   Image,
   useToast,
-} from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
-import { Icon, ViewOffIcon, ViewIcon } from '@chakra-ui/icons';
-import { signIn, getSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import { redirect } from 'next/dist/server/api-utils';
-import axiosInstance from '../../client/src/config/api';
+} from "@chakra-ui/react";
+import { useState, useEffect } from "react";
+import { Icon, ViewOffIcon, ViewIcon } from "@chakra-ui/icons";
+import { signIn, getSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 function Login() {
-  const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [isLogin, setIsLogin] = useState(false);
   const [login, setLogin] = useState(false);
   const router = useRouter();
@@ -30,9 +28,9 @@ function Login() {
     const session = await getSession();
 
     if (session?.user.user.isAdmin) {
-      router.replace('/admin');
+      router.replace("/admin");
     } else if (session) {
-      router.replace('/');
+      router.replace("/");
     }
   }
 
@@ -48,11 +46,11 @@ function Login() {
       <InputGroup size="lg">
         <Input
           pr="4.5rem"
-          type={show ? 'text' : 'password'}
+          type={show ? "text" : "password"}
           placeholder="Enter password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          variant={'filled'}
+          variant={"filled"}
           mb={6}
         />
         <InputRightElement>
@@ -69,7 +67,7 @@ function Login() {
   }
 
   const onLoginClick = async () => {
-    const res = await signIn('credentials', {
+    const res = await signIn("credentials", {
       redirect: false,
       email,
       password,
@@ -80,10 +78,10 @@ function Login() {
     } else {
       console.log({ Error: res.error });
       toast({
-        title: 'Error!',
+        title: "Error!",
         description: res.error,
-        position: 'top',
-        status: 'error',
+        position: "top",
+        status: "error",
         duration: 3000,
         isClosable: true,
       });
@@ -100,22 +98,22 @@ function Login() {
       <Flex
         flex={1}
         background={
-          'linear-gradient(153.41deg, #008DEB 0.81%, rgba(0, 141, 235, 0.56) 49.89%, rgba(0, 141, 235, 0.28) 95.87%);'
+          "linear-gradient(153.41deg, #008DEB 0.81%, rgba(0, 141, 235, 0.56) 49.89%, rgba(0, 141, 235, 0.28) 95.87%);"
         }
-        boxShadow={'2xl'}
+        boxShadow={"2xl"}
       >
         <div className="w-[100%] flex items-center justify-center">
           <Image
-            alt={'Register Image'}
+            alt={"Register Image"}
             objectFit="contain"
-            src={'login/orang.svg'}
-            zIndex={'popover'}
+            src={"login/orang.svg"}
+            zIndex={"popover"}
           />
           <Image
             className="absolute"
-            alt={'Register Image'}
+            alt={"Register Image"}
             objectFit="contain"
-            src={'login/Buletan.svg'}
+            src={"login/Buletan.svg"}
           />
         </div>
       </Flex>
@@ -131,12 +129,12 @@ function Login() {
       >
         <Link className="w-[60%]" href="/">
           <Image
-            alt={'Register Image'}
-            objectFit={'cover'}
+            alt={"Register Image"}
+            objectFit={"cover"}
             marginBottom="13vh"
             width="100%"
-            src={'forgotPassword/Medbox-logo.svg'}
-            zIndex={'popover'}
+            src={"forgotPassword/Medbox-logo.svg"}
+            zIndex={"popover"}
           />
         </Link>
         <p className="mb-6 font-[400] text-[3rem]">Login to Medbox</p>
@@ -154,19 +152,19 @@ function Login() {
         <Button
           colorScheme="linkedin"
           size="lg"
-          width={'100px'}
+          width={"100px"}
           onClick={onLoginClick}
         >
           Login
         </Button>
         <Text mt={5}>
-          Haven&apos;t registered? {''}
+          Haven&apos;t registered? {""}
           <Link color="linkedin.500" href="/register">
             Register here!
           </Link>
         </Text>
         <Text mt={5}>
-          Forgot Password?{' '}
+          Forgot Password?{" "}
           <Link color="linkedin.500" href="/forgotPassword">
             Click Here!
           </Link>
@@ -183,9 +181,9 @@ export async function getServerSideProps() {
     const session = await getSession();
 
     if (session?.user.user.isAdmin) {
-      return { redirect: { destination: '/admin' } };
+      return { redirect: { destination: "/admin" } };
     } else if (session) {
-      return { redirect: { destination: '/' } };
+      return { redirect: { destination: "/" } };
     }
 
     return { props: {} };

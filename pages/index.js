@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
-import Link from 'next/link';
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import Link from "next/link";
 import {
   Button,
   Input,
@@ -9,17 +9,17 @@ import {
   InputRightElement,
   Skeleton,
   VStack,
-} from '@chakra-ui/react';
-import { getSession } from 'next-auth/react';
-import axiosInstance from '../src/config/api';
-import { useRouter } from 'next/router';
-import { api_origin } from '../constraint/index';
+} from "@chakra-ui/react";
+import { getSession } from "next-auth/react";
+import axiosInstance from "../src/config/api";
+import { useRouter } from "next/router";
+import { api_origin } from "../constraint/index";
 
 export default function Home(props) {
   const [hasMore, setHasMore] = useState();
   const [products, setProducts] = useState();
   const [productsPage, setProductsPage] = useState(1);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const { session, fetchedCategories } = props;
   const router = useRouter();
 
@@ -29,7 +29,7 @@ export default function Home(props) {
 
   function categoriesMap() {
     if (!fetchedCategories) {
-      return 'Empty Categories';
+      return "Empty Categories";
     }
 
     return fetchedCategories.map((category) => {
@@ -38,7 +38,7 @@ export default function Home(props) {
           key={category.category_lists_id}
           onClick={() => {
             router.replace(
-              `/productCatalog/${category.category_lists_id}=category=1`,
+              `/productCatalog/${category.category_lists_id}=category=1`
             );
           }}
           className="flex flex-col hover:cursor-pointer flex-none items-center justify-start w-[25%] desktop:flex-row desktop:h-[9vh] desktop:w-[31%] desktop:bg-white desktop:shadow-[0px_6px_20px_0px_rgba(0,28,47,0.05)]"
@@ -74,9 +74,9 @@ export default function Home(props) {
             key={skeletonNumber}
             className="w-[35vw] mx-[3vw] h-[100%] flex-none flex flex-col items-center desktop:w-[10vw]"
           >
-            <Skeleton height={'60%'} width={'100%'} marginY={'1vh'} />
-            <Skeleton height={'10%'} width={'100%'} marginY={'1vh'} />
-            <Skeleton height={'15%'} width={'100%'} marginY={'1vh'} />
+            <Skeleton height={"60%"} width={"100%"} marginY={"1vh"} />
+            <Skeleton height={"10%"} width={"100%"} marginY={"1vh"} />
+            <Skeleton height={"15%"} width={"100%"} marginY={"1vh"} />
           </div>
         );
       });
@@ -114,7 +114,7 @@ export default function Home(props) {
             </p>
           </div>
           <p className="font-[500] text-[12px] w-[100%]">
-            Rp.{product.productPrice.toLocaleString('id')}
+            Rp.{product.productPrice.toLocaleString("id")}
           </p>
           <div className="grow" />
           <div className="w-[100%]">
@@ -125,7 +125,7 @@ export default function Home(props) {
               variant="outline"
               colorScheme="linkedin"
               disabled={!props.session?.user.user.isVerified}
-              sx={{ width: '100%', height: '5vh', marginBottom: '6vh' }}
+              sx={{ width: "100%", height: "5vh", marginBottom: "6vh" }}
             >
               <p className="text-[12px]">Tambah</p>
             </Button>
@@ -137,9 +137,12 @@ export default function Home(props) {
 
   async function fetchProducts() {
     try {
-      const newProducts = await axiosInstance.get('/products/landingPage', {
+      console.log("jalan");
+      const newProducts = await axiosInstance.get("/products/landingPage", {
         params: { limit: 4, productsPage },
       });
+
+      console.log({ newProducts });
 
       setProducts(newProducts.data.landingPageProducts);
       setHasMore(newProducts.data.hasMore);
@@ -156,7 +159,7 @@ export default function Home(props) {
         <p className="absolute z-[2] text-white font-[400] text-[4vw] left-[15vw] bottom-[200px]">
           Your Pharmacy, <br /> Everywhere
         </p>
-        <Link href={'/productCatalog'}>
+        <Link href={"/productCatalog"}>
           <p className="absolute z-[2] text-white font-[500] text-[14px] bottom-[55px] left-[15vw] underline underline-offset-4 decoration-white hover:cursor-pointer">
             Lihat Semua Obat
           </p>
@@ -168,7 +171,7 @@ export default function Home(props) {
           <Input
             variant="unstyled"
             placeholder="Cari Obat"
-            sx={{ paddingLeft: '5%' }}
+            sx={{ paddingLeft: "5%" }}
             onChange={(event) => {
               setSearchQuery(event.target.value);
             }}
@@ -232,11 +235,11 @@ export default function Home(props) {
               />
             </div>
             <div className="hidden desktop:inline">
-              <Link href={session ? '/upload-prescription-image' : '/login'}>
+              <Link href={session ? "/upload-prescription-image" : "/login"}>
                 <Button
                   variant="outline"
                   colorScheme="linkedin"
-                  sx={{ width: '8vw', height: '6vh' }}
+                  sx={{ width: "8vw", height: "6vh" }}
                 >
                   <p className="font-[500] text-[.9rem]">Unggah Resep</p>
                 </Button>
@@ -265,11 +268,11 @@ export default function Home(props) {
               onClick={() => {
                 setProductsPage(productsPage - 1);
               }}
-              width={'5vh'}
-              height={'5vh'}
-              rounded={'50%'}
+              width={"5vh"}
+              height={"5vh"}
+              rounded={"50%"}
             >
-              {'<<'}
+              {"<<"}
             </Button>
             <div className="flex w-[100%]">{productsMap()}</div>
             <Button
@@ -277,11 +280,11 @@ export default function Home(props) {
               onClick={() => {
                 setProductsPage(productsPage + 1);
               }}
-              width={'5vh'}
-              height={'5vh'}
-              rounded={'50%'}
+              width={"5vh"}
+              height={"5vh"}
+              rounded={"50%"}
             >
-              {'>>'}
+              {">>"}
             </Button>
           </div>
         </div>
@@ -295,7 +298,7 @@ export async function getServerSideProps(context) {
     const session = await getSession({ req: context.req });
 
     const fetchedCategories = await axiosInstance.get(
-      'categories/getLandingCategories',
+      "categories/getLandingCategories"
     );
 
     return {
