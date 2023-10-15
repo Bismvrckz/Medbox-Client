@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps }) {
           <meta name="description" content="Buy your medicine here" />
           <link rel="icon" href="/admin/Medbox.png" />
         </Head>
-        <div className="font-[poppins]">
+        <div className="font-[raleway]">
           <Component {...pageProps} />
         </div>
       </ChakraProvider>
